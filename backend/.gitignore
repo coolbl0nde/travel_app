@@ -1,8 +1,12 @@
+Unnecessary line
+
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/test/**/build/
+Unnecessary
+!**/src/test/**/build/ <- this line is necessary
+Lines
 
 ### STS ###
 .apt_generated
