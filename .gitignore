@@ -1,6 +1,7 @@
 # Gradle files
 .gradle/
 build/
+database_data
 
 # Local configuration file (sdk path, etc)
 local.properties
