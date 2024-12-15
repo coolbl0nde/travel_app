@@ -21,14 +21,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.travelmap.R
+import com.example.travelmap.presentation.navigation.AuthChoiceScreen
 import com.example.travelmap.ui.theme.TravelMapTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WelcomeScreen(
-    viewModel: WelcomeViewModel = hiltViewModel()
+    viewModel: WelcomeViewModel = hiltViewModel(),
+    navController: NavHostController = rememberNavController()
 ) {
     val slides = listOf<String>(
         "Let’s start\n your Vacation!",
@@ -79,6 +83,9 @@ fun WelcomeScreen(
             onClick = {
                 if (pagerState.currentPage == slides.size - 1) {
                     viewModel.completeOnBoarding()
+                    navController.navigate(AuthChoiceScreen){
+                        popUpTo(0) {inclusive = true}
+                    }
                 } else {
                     scope.launch {
                         pagerState.animateScrollToPage(
