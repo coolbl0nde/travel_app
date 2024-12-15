@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,11 +26,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.travelmap.R
+import com.example.travelmap.presentation.common.CustomButton
+import com.example.travelmap.presentation.navigation.LoginScreen
+import com.example.travelmap.presentation.navigation.RegisterScreen
 import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
-fun AuthChoiceScreen () {
+fun AuthChoiceScreen (
+    navController: NavHostController = rememberNavController()
+) {
     Box(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.secondary)
@@ -61,38 +67,24 @@ fun AuthChoiceScreen () {
 
             Spacer(modifier = Modifier.padding(10.dp))
 
-            Button(
-                onClick = { /*TODO*/ },
+            CustomButton(
+                text = "Register",
+                onClick = { navController.navigate(RegisterScreen) },
                 modifier = Modifier
-                    .width(219.dp)
+                    .width(220.dp)
                     .height(50.dp)
-            ) {
-                Text(
-                    text = "Register",
-                    fontFamily = FontFamily(Font(R.font.poppins)),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight(700)
-                )
-            }
+            )
 
             Spacer(modifier = Modifier.padding(5.dp))
 
-            Button(
-                onClick = { /*TODO*/ },
+            CustomButton(
+                text = "Login",
+                onClick = { navController.navigate(LoginScreen) },
+                backgroundColor = Color(0xFFFFA183),
                 modifier = Modifier
-                    .width(219.dp)
-                    .height(50.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFFFA183)
-                )
-                ) {
-                Text(
-                    text = "Login",
-                    fontFamily = FontFamily(Font(R.font.poppins)),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight(700)
-                )
-            }
+                    .width(220.dp)
+                    .height(50.dp)
+            )
         }
 
     }

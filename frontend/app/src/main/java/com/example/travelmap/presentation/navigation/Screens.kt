@@ -7,3 +7,9 @@ object WelcomeScreen
 
 @Serializable
 object AuthChoiceScreen
+
+@Serializable
+object RegisterScreen
+
+@Serializable
+object LoginScreen
