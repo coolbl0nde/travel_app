@@ -38,6 +38,7 @@ import com.example.travelmap.presentation.common.CustomButton
 import com.example.travelmap.presentation.common.CustomTextField
 import com.example.travelmap.presentation.navigation.AuthChoiceScreen
 import com.example.travelmap.presentation.navigation.LoginScreen
+import com.example.travelmap.presentation.navigation.RegisterScreen
 import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
@@ -80,7 +81,7 @@ fun RegisterScreen(
                     .padding(start = 20.dp, end = 20.dp, top = 30.dp)
             ) {
 
-                IconButton(onClick = { navController.navigate(AuthChoiceScreen) }) {
+                IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         painter = painterResource(id = R.drawable.arrow_back),
                         contentDescription = "back"
@@ -99,7 +100,9 @@ fun RegisterScreen(
                         .height(23.dp)
                         .align(Alignment.CenterVertically)
                         .clickable {
-                            navController.navigate(LoginScreen)
+                            navController.navigate(LoginScreen){
+                                popUpTo(RegisterScreen) { inclusive = true }
+                            }
                         }
                 )
 
@@ -121,7 +124,7 @@ fun RegisterScreen(
                 value = userName,
                 onValueChange = { userName = it },
                 label = "User Name",
-                //trailingIcon = Icons.Default.Check,
+                trailingIcon = painterResource(id = R.drawable.check_mark),
                 modifier = Modifier
                     .width(300.dp)
                     .height(50.dp)
@@ -133,6 +136,7 @@ fun RegisterScreen(
                 value = email,
                 onValueChange = { email = it },
                 label = "Email",
+                trailingIcon = painterResource(id = R.drawable.check_mark),
                 modifier = Modifier
                     .width(300.dp)
                     .height(50.dp)
@@ -144,6 +148,8 @@ fun RegisterScreen(
                 value = password,
                 onValueChange = { password = it },
                 label = "Password",
+                trailingIconButton = painterResource(id = R.drawable.show_icon),
+                isPassword = true,
                 modifier = Modifier
                     .width(300.dp)
                     .height(50.dp)

@@ -24,11 +24,11 @@ fun NavGraph (navController: NavHostController, startDestination: Any) {
         }
 
         composable<RegisterScreen> {
-            RegisterScreen()
+            RegisterScreen(navController = navController)
         }
 
         composable<LoginScreen> {
-            LoginScreen()
+            LoginScreen(navController = navController)
         }
     }
 }
