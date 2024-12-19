@@ -1,4 +1,4 @@
-package com.example.travelmap.domain.usecases
+package com.example.travelmap.domain.usecase
 
 import com.example.travelmap.domain.repository.AppEntryRepository
 

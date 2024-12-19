@@ -2,7 +2,7 @@ package com.example.travelmap.presentation.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.travelmap.domain.usecases.SetFirstLaunchCompletedUseCase
+import com.example.travelmap.domain.usecase.SetFirstLaunchCompletedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.example.travelmap.presentation.auth.screens
+package com.example.travelmap.presentation.auth.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -36,19 +35,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.travelmap.R
 import com.example.travelmap.presentation.common.CustomButton
 import com.example.travelmap.presentation.common.CustomTextField
-import com.example.travelmap.presentation.navigation.AuthChoiceScreen
 import com.example.travelmap.presentation.navigation.LoginScreen
 import com.example.travelmap.presentation.navigation.RegisterScreen
-import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
-fun RegisterScreen(
+fun LoginScreen (
     navController: NavHostController = rememberNavController()
 ) {
-
-    var userName by remember {
-        mutableStateOf("")
-    }
 
     var email by remember {
         mutableStateOf("")
@@ -91,7 +84,7 @@ fun RegisterScreen(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = "Login",
+                    text = "Register",
                     textAlign = TextAlign.Center,
                     fontFamily = FontFamily(Font(R.font.poppins)),
                     fontSize = 17.sp,
@@ -100,8 +93,8 @@ fun RegisterScreen(
                         .height(23.dp)
                         .align(Alignment.CenterVertically)
                         .clickable {
-                            navController.navigate(LoginScreen){
-                                popUpTo(RegisterScreen) { inclusive = true }
+                            navController.navigate(RegisterScreen){
+                                popUpTo(LoginScreen) { inclusive = true }
                             }
                         }
                 )
@@ -111,23 +104,11 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(90.dp))
 
             Text(
-                text = "Register",
+                text = "Login",
                 fontSize = 36.sp,
                 fontFamily = FontFamily(Font(R.font.poppins)),
                 fontWeight = FontWeight(700),
                 textAlign = TextAlign.Center,
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            CustomTextField(
-                value = userName,
-                onValueChange = { userName = it },
-                label = "User Name",
-                trailingIcon = painterResource(id = R.drawable.check_mark),
-                modifier = Modifier
-                    .width(300.dp)
-                    .height(50.dp)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -158,7 +139,7 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             CustomButton(
-                text = "Register",
+                text = "Login",
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .width(300.dp)
@@ -167,12 +148,4 @@ fun RegisterScreen(
         }
     }
 
-}
-
-@Preview
-@Composable
-fun RegistrationScreenPreview(){
-    TravelMapTheme {
-        RegisterScreen()
-    }
 }

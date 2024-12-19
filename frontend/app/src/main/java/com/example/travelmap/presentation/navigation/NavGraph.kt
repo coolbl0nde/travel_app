@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.travelmap.presentation.auth.screens.AuthChoiceScreen
-import com.example.travelmap.presentation.auth.screens.LoginScreen
+import com.example.travelmap.presentation.auth.AuthChoiceScreen
+import com.example.travelmap.presentation.auth.login.LoginScreen
 import com.example.travelmap.presentation.welcome.WelcomeScreen
-import com.example.travelmap.presentation.auth.screens.RegisterScreen
+import com.example.travelmap.presentation.auth.register.RegisterScreen
 
 
 

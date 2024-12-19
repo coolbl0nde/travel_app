@@ -1,9 +1,12 @@
 package com.example.travelmap.di
 
 import android.app.Application
+import androidx.room.Room
+import com.example.travelmap.data.local.db.AppDatabase
+import com.example.travelmap.data.local.db.UserDao
 import com.example.travelmap.data.repository.AppEntryRepositoryImpl
 import com.example.travelmap.domain.repository.AppEntryRepository
-import com.example.travelmap.domain.usecases.SetFirstLaunchCompletedUseCase
+import com.example.travelmap.domain.usecase.SetFirstLaunchCompletedUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +19,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesSetFirstLaunchCompletedUseCase(
+    fun provideSetFirstLaunchCompletedUseCase(
         repository: AppEntryRepository
     ): SetFirstLaunchCompletedUseCase{
         return SetFirstLaunchCompletedUseCase(repository)

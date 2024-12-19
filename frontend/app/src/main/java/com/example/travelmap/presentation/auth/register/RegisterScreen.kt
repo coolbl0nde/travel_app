@@ -1,4 +1,4 @@
-package com.example.travelmap.presentation.auth.screens
+package com.example.travelmap.presentation.auth.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -37,11 +38,16 @@ import com.example.travelmap.presentation.common.CustomButton
 import com.example.travelmap.presentation.common.CustomTextField
 import com.example.travelmap.presentation.navigation.LoginScreen
 import com.example.travelmap.presentation.navigation.RegisterScreen
+import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
-fun LoginScreen (
+fun RegisterScreen(
     navController: NavHostController = rememberNavController()
 ) {
+
+    var userName by remember {
+        mutableStateOf("")
+    }
 
     var email by remember {
         mutableStateOf("")
@@ -84,7 +90,7 @@ fun LoginScreen (
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = "Register",
+                    text = "Login",
                     textAlign = TextAlign.Center,
                     fontFamily = FontFamily(Font(R.font.poppins)),
                     fontSize = 17.sp,
@@ -93,8 +99,8 @@ fun LoginScreen (
                         .height(23.dp)
                         .align(Alignment.CenterVertically)
                         .clickable {
-                            navController.navigate(RegisterScreen){
-                                popUpTo(LoginScreen) { inclusive = true }
+                            navController.navigate(LoginScreen){
+                                popUpTo(RegisterScreen) { inclusive = true }
                             }
                         }
                 )
@@ -104,11 +110,23 @@ fun LoginScreen (
             Spacer(modifier = Modifier.height(90.dp))
 
             Text(
-                text = "Login",
+                text = "Register",
                 fontSize = 36.sp,
                 fontFamily = FontFamily(Font(R.font.poppins)),
                 fontWeight = FontWeight(700),
                 textAlign = TextAlign.Center,
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            CustomTextField(
+                value = userName,
+                onValueChange = { userName = it },
+                label = "User Name",
+                trailingIcon = painterResource(id = R.drawable.check_mark),
+                modifier = Modifier
+                    .width(300.dp)
+                    .height(50.dp)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -139,7 +157,7 @@ fun LoginScreen (
             Spacer(modifier = Modifier.height(20.dp))
 
             CustomButton(
-                text = "Login",
+                text = "Register",
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .width(300.dp)
@@ -148,4 +166,12 @@ fun LoginScreen (
         }
     }
 
+}
+
+@Preview
+@Composable
+fun RegistrationScreenPreview(){
+    TravelMapTheme {
+        RegisterScreen()
+    }
 }
