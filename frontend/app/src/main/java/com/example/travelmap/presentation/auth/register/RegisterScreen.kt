@@ -17,6 +17,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,19 +32,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.travelmap.R
 import com.example.travelmap.presentation.common.CustomButton
 import com.example.travelmap.presentation.common.CustomTextField
+import com.example.travelmap.presentation.navigation.HomeScreen
 import com.example.travelmap.presentation.navigation.LoginScreen
 import com.example.travelmap.presentation.navigation.RegisterScreen
 import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
 fun RegisterScreen(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
+
+    val isSuccess by registerViewModel.isSuccess.collectAsStateWithLifecycle()
+
+    if (isSuccess) {
+        LaunchedEffect(Unit){
+            navController.navigate(HomeScreen){
+
+            }
+        }
+    }
 
     var userName by remember {
         mutableStateOf("")
@@ -99,7 +114,7 @@ fun RegisterScreen(
                         .height(23.dp)
                         .align(Alignment.CenterVertically)
                         .clickable {
-                            navController.navigate(LoginScreen){
+                            navController.navigate(LoginScreen) {
                                 popUpTo(RegisterScreen) { inclusive = true }
                             }
                         }
@@ -158,7 +173,9 @@ fun RegisterScreen(
 
             CustomButton(
                 text = "Register",
-                onClick = { /*TODO*/ },
+                onClick = {
+                    registerViewModel.onRegisterClicked(userName, email, password)
+                },
                 modifier = Modifier
                     .width(300.dp)
                     .height(50.dp)

@@ -8,7 +8,7 @@ import com.example.travelmap.presentation.auth.AuthChoiceScreen
 import com.example.travelmap.presentation.auth.login.LoginScreen
 import com.example.travelmap.presentation.welcome.WelcomeScreen
 import com.example.travelmap.presentation.auth.register.RegisterScreen
-
+import com.example.travelmap.presentation.home.HomeScreen
 
 
 @Composable
@@ -29,6 +29,10 @@ fun NavGraph (navController: NavHostController, startDestination: Any) {
 
         composable<LoginScreen> {
             LoginScreen(navController = navController)
+        }
+
+        composable<HomeScreen> {
+            HomeScreen()
         }
     }
 }
