@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Travel Map</string>
+    <string name="mapbox_access_token" translatable="false">
+        pk.eyJ1IjoiY29vbGJsMG5kZSIsImEiOiJjbTUxZms4ankwdGJ3MnNxMnhlMmsyaWxhIn0.MklHnjBsZg66AEDj5ZNZ7g</string>
 </resources>
