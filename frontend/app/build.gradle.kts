@@ -98,4 +98,7 @@ dependencies {
     implementation ("com.squareup.moshi:moshi:1.15.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
     kapt ("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+
+    implementation("androidx.compose.material:material:1.7.6")
+
 }

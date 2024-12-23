@@ -8,13 +8,16 @@ import com.example.travelmap.presentation.auth.AuthChoiceScreen
 import com.example.travelmap.presentation.auth.login.LoginScreen
 import com.example.travelmap.presentation.welcome.WelcomeScreen
 import com.example.travelmap.presentation.auth.register.RegisterScreen
+import com.example.travelmap.presentation.chat.ChatScreen
 import com.example.travelmap.presentation.home.HomeScreen
+import com.example.travelmap.presentation.profile.ProfileScreen
+import com.example.travelmap.presentation.routes.RoutesScreen
 
 
 @Composable
 fun NavGraph (navController: NavHostController, startDestination: Any) {
 
-    NavHost(navController = navController, startDestination = WelcomeScreen) {
+    NavHost(navController = navController, startDestination = startDestination) {
         composable<WelcomeScreen> {
             WelcomeScreen(navController = navController)
         }
@@ -33,6 +36,18 @@ fun NavGraph (navController: NavHostController, startDestination: Any) {
 
         composable<HomeScreen> {
             HomeScreen()
+        }
+
+        composable<RoutesScreen> {
+            RoutesScreen()
+        }
+
+        composable<ChatScreen> {
+            ChatScreen()
+        }
+
+        composable<ProfileScreen> {
+            ProfileScreen()
         }
     }
 }
