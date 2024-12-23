@@ -36,22 +36,19 @@ class MainActivity : ComponentActivity() {
             TravelMapTheme(
                 dynamicColor = false
             ) {
-
                 Scaffold (
                     bottomBar = {
                         TOP_LEVEL_ROUTES.forEach {topLevelRoute ->
                             if(currentDestination?.hierarchy?.any{
                                     it.hasRoute(route = topLevelRoute.route::class)
                                 } == true) {
-
                                 BottomNavigationBar(navController)
-
                             }
                         }
 
                     }
                 ) {
-                    NavGraph(navController = navController, startDestination = WelcomeScreen)
+                    NavGraph(navController = navController, startDestination = HomeScreen)
                 }
             }
         }
