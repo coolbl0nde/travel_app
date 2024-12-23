@@ -23,6 +23,7 @@ fun CustomButton (
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     textSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight(700),
+    colorText: Color = Color.White,
     modifier: Modifier = Modifier
 ) {
 
@@ -34,6 +35,7 @@ fun CustomButton (
     ) {
         Text(
             text = text,
+            color = colorText,
             fontFamily = FontFamily(Font(R.font.poppins)),
             fontSize = textSize,
             fontWeight = fontWeight
