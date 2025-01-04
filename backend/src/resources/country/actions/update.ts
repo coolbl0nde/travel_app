@@ -1,14 +1,13 @@
 import { z } from 'zod';
 
-import { userService } from 'resources/user';
+import { countryService } from 'resources/country';
 
 import { validateMiddleware } from 'middlewares';
 
-import { EMAIL_REGEX } from 'app-constants';
 import { AppKoaContext, AppRouter, Next } from 'types';
 
 const schema = z.object({
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
+  name: z.string().min(1, 'Please, enter country name.'),
 });
 
 type ValidatedData = z.infer<typeof schema>;
@@ -21,23 +20,21 @@ type Request = {
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
   const { id } = ctx.request.params;
 
-  const isUserExists = await userService.count({ where: { id } });
+  const isCountryExists = await countryService.count({ where: { id } });
 
-  ctx.assertClientError(isUserExists, { global: 'User not found' });
+  ctx.assertClientError(isCountryExists, { global: 'Country not found.' });
 
   await next();
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
   const { id } = ctx.request.params;
-  const { email } = ctx.validatedData;
+  const { name } = ctx.validatedData;
 
-  const updatedUser = await userService.update({
+  ctx.body = await countryService.update({
     where: { id },
-    data: { email },
+    data: { name },
   });
-
-  ctx.body = userService.getPublic(updatedUser);
 }
 
 export default (router: AppRouter) => {
