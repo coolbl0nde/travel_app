@@ -10,7 +10,12 @@ COPY . .
 RUN pnpm fetch
 RUN pnpm install
 
-RUN pnpm prisma:migrate-dev && pnpm prisma:generate
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
+RUN if [ -n "${DATABASE_URL}" ]; then \
+      pnpm prisma:migrate-deploy && pnpm prisma:generate; \
+    fi
 
 WORKDIR /app
 
