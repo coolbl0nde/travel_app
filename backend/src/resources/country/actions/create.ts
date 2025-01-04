@@ -8,6 +8,8 @@ import { AppKoaContext, AppRouter, Next } from 'types';
 
 const schema = z.object({
   name: z.string().min(1, 'Please, enter country name.'),
+  longitude: z.number().min(0, 'Please, provide longitude.'),
+  latitude: z.number().min(0, 'Please, provide latitude.'),
 });
 type ValidatedData = z.infer<typeof schema>;
 
@@ -26,12 +28,11 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
   const { id: userId } = ctx.state.user;
-  const { name } = ctx.validatedData;
 
   ctx.body = await countryService.create({
     data: {
       userId,
-      name
+      ...ctx.validatedData
     }
   });
 }
