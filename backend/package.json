@@ -8,10 +8,11 @@
     "build": "tsc",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate-dev": "npx prisma migrate dev",
+    "prisma:migrate-deploy": "npx prisma migrate deploy",
     "dev": "NODE_ENV=development APP_ENV=development ts-node-dev --respawn --transpile-only src/app.ts",
     "start": "ts-node src/app.ts",
     "tsc": "tsc --noEmit --watch",
-    "prettier": "prettier . --write --config .prettierrc.json",
+    "prettier": "prettier . --write --config .prettierrc.js",
     "eslint": "eslint . --fix",
     "precommit": "lint-staged"
   },

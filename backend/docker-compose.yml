@@ -30,8 +30,9 @@ services:
       dockerfile: Dockerfile
       target: development
       args:
-        NODE_ENV: development
-        APP_ENV: development
+        - NODE_ENV
+        - APP_ENV
+        - DATABASE_URL
     volumes:
       - ./prisma:/app/prisma
     ports:

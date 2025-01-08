@@ -10,9 +10,9 @@ type Request = {
 }; 
 
 async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next) {
-  const isUserExists = await userService.count({
-    where: { id: ctx.request.params.id },
-  });
+  const { id } = ctx.request.params;
+
+  const isUserExists = await userService.count({ where: { id } });
 
   ctx.assertClientError(isUserExists, { global: 'User not found' });
 
@@ -20,11 +20,11 @@ async function validator(ctx: AppKoaContext<ValidatedData, Request>, next: Next)
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData, Request>) {
-  await userService.delete({
-    where: { id: ctx.request.params.id },
-  });
+  const { id } = ctx.request.params;
 
-  ctx.body = {};
+  await userService.delete({ where: { id } });
+
+  ctx.body = 200;
 }
 
 export default (router: AppRouter) => {
