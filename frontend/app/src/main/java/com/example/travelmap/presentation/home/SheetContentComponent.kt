@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
@@ -23,6 +26,14 @@ import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
 fun SheetContentComponent () {
+
+    val shouldShowCountryDialog = remember {
+        mutableStateOf(false)
+    }
+
+    if (shouldShowCountryDialog.value) {
+        CountryListDialog(shouldShowCountryDialog = shouldShowCountryDialog)
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -60,7 +71,7 @@ fun SheetContentComponent () {
         Row {
             CustomButton(
                 text = "Add country",
-                onClick = { /*TODO*/ },
+                onClick = { shouldShowCountryDialog.value = true },
                 fontWeight = FontWeight(300),
                 textSize = 14.sp,
                 modifier = Modifier

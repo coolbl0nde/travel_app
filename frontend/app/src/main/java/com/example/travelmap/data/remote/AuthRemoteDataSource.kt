@@ -7,7 +7,7 @@ class AuthRemoteDataSource @Inject constructor(
     private val authApi: AuthApi
 ) {
 
-    suspend fun login(email: String, password: String): LoginResponse {
+    suspend fun login(email: String, password: String): AuthResponse {
         val response = authApi.login(LoginRequest(email, password))
 
         if (response.isSuccessful && response.body() != null) {
@@ -17,9 +17,8 @@ class AuthRemoteDataSource @Inject constructor(
         }
     }
 
-    suspend fun register(name: String, email: String, password: String): RegisterResponse {
+    suspend fun register(name: String, email: String, password: String): AuthResponse {
         val response = authApi.register(RegisterRequest(name, email, password))
-
 
         if (response.isSuccessful && response.body() != null) {
             return response.body()!!

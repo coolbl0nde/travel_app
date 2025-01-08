@@ -22,6 +22,4 @@ class AuthInterceptor(
 
         return chain.proceed(newRequest)
     }
-
-
 }

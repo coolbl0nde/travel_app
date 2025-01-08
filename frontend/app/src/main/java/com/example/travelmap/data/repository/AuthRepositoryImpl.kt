@@ -1,5 +1,6 @@
 package com.example.travelmap.data.repository
 
+import android.util.Log
 import com.example.travelmap.data.local.db.UserDao
 import com.example.travelmap.data.local.prefs.TokenProvider
 import com.example.travelmap.data.remote.AuthRemoteDataSource
@@ -31,5 +32,21 @@ class AuthRepositoryImpl @Inject constructor(
         tokenProvider.saveToken(registerResponse.accessToken)
 
         return registerResponse.user
+    }
+
+    override suspend fun isLoggedIn(): Result<Unit> {
+        return try {
+            val token = tokenProvider.getToken()
+            if (token != null) {
+                Log.e("Auth Rep", "Token is success")
+                Result.success(Unit)
+            } else {
+                Log.e("Auth Rep", "Token is missing")
+                Result.failure(Exception("Token is missing"))
+            }
+        } catch (e: Exception) {
+            Log.e("Auth Rep", "$e")
+            Result.failure(e)
+        }
     }
 }
