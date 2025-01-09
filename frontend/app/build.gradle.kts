@@ -102,11 +102,8 @@ dependencies {
 
     implementation("androidx.compose.material:material:1.7.6")
 
-<<<<<<< HEAD
     implementation("com.mapbox.maps:android:11.9.0")
     implementation("com.mapbox.extension:maps-compose:11.9.0")
 
     implementation("com.google.maps.android:places-compose:0.1.2")
-=======
->>>>>>> b1385d2a78a941e95f292da562bd5061d7762d1d
 }

@@ -3,8 +3,13 @@ package com.example.travelmap.presentation.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.AlertDialog
@@ -29,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.travelmap.domain.model.Country
+import com.example.travelmap.presentation.common.CustomButton
 import com.example.travelmap.ui.theme.TravelMapTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,25 +53,36 @@ fun CountryListDialog (
     }
 
     AlertDialog(
-        onDismissRequest = { /*TODO*/ },
+        onDismissRequest = { shouldShowCountryDialog.value = false },
+        dismissButton = {
+            CustomButton(
+                text = "Cancel",
+                onClick = { shouldShowCountryDialog.value = false },
+                modifier = Modifier.size(width = 120.dp, height = 35.dp)
+            )
+        },
         confirmButton = {
-            Button(
+            CustomButton(
                 onClick = {
                     shouldShowCountryDialog.value = false
                     if (selectedCountry != null){
                         viewModel.addCountry(selectedCountry!!)
                     }
-                }
-            ) {
-                Text(
-                    text = "Confirm",
-                    color = Color.White
-                )
-            }
+                },
+                text = "Add",
+                modifier = Modifier.size(width = 90.dp, height = 35.dp)
+            )
         },
-        title = { Text(text = "Add new country") },
+        modifier = Modifier.height(240.dp),
+        //title = { Text(text = "Add new country", color = Color.Black) },
         text = {
             Column {
+                Text(
+                    text = "Add new country",
+                    color = Color.Black,
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(modifier = Modifier.height(10.dp))
                 DockedSearchBar(
                     inputField = {
                         SearchBarDefaults.InputField(
@@ -86,7 +103,7 @@ fun CountryListDialog (
                         dividerColor = Color.Black),
                     expanded = isExpanded && countriesList.isNotEmpty(),
                     onExpandedChange = { viewModel.toggleExpanded() },
-                    modifier = Modifier.padding(top = 10.dp)
+                    //modifier = Modifier.padding(top = 10.dp)
                 ) {
                     LazyColumn {
                         items(items = countriesList) { country ->
@@ -101,7 +118,7 @@ fun CountryListDialog (
                                         viewModel.performSearch()
                                     }
                                     .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                                    //.padding(horizontal = 16.dp, vertical = 4.dp)
                             )
                         }
                     }
