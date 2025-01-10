@@ -16,7 +16,7 @@ class SharedPreferencesTokenProvider @Inject constructor(
     }
 
     override fun saveToken(token: String) {
-        encryptedSharedPreferences.edit().putString(KEY_TOKEN, token)
+        encryptedSharedPreferences.edit().putString(KEY_TOKEN, token).apply()
     }
 
     override fun clearToken() {

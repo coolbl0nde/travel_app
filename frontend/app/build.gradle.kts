@@ -67,8 +67,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.3.1")
     implementation ("androidx.datastore:datastore-preferences:1.1.1")
     implementation ("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("com.google.android.libraries.places:places:4.1.0")
+    implementation("androidx.appcompat:appcompat-resources:1.7.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -92,7 +95,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
-
     implementation ("com.squareup.okhttp3:okhttp:4.12.0")
 
     implementation ("com.squareup.moshi:moshi:1.15.0")
@@ -101,4 +103,8 @@ dependencies {
 
     implementation("androidx.compose.material:material:1.7.6")
 
+    implementation("com.mapbox.maps:android:11.9.0")
+    implementation("com.mapbox.extension:maps-compose:11.9.0")
+
+    implementation("com.google.maps.android:places-compose:0.1.2")
 }
