@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,19 +21,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.travelmap.R
 import com.example.travelmap.presentation.common.CustomButton
 import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
-fun SheetContentComponent () {
+fun SheetContentComponent (
+    viewModel: CountryViewModel = hiltViewModel()
+) {
+
+    val userCountries = viewModel.userCountries.collectAsState()
 
     val shouldShowCountryDialog = remember {
         mutableStateOf(false)
     }
 
     if (shouldShowCountryDialog.value) {
-        CountryListDialog(shouldShowCountryDialog = shouldShowCountryDialog)
+        CountryListDialog(
+            shouldShowCountryDialog = shouldShowCountryDialog,
+            viewModel
+        )
     }
 
     Column(
@@ -48,7 +57,7 @@ fun SheetContentComponent () {
         )
 
         Text(
-            text = "2",
+            text = userCountries.value.size.toString(),
             style = MaterialTheme.typography.titleLarge.copy(
                 color = Color.Black
             ),

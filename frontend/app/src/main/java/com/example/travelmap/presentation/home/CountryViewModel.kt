@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.travelmap.domain.model.Country
 import com.example.travelmap.domain.usecase.country.GetListCountriesUseCase
+import com.example.travelmap.domain.usecase.country.GetUserCountriesUseCase
 import com.example.travelmap.domain.usecase.country.PostCountryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CountryViewModel @Inject constructor(
     private val getListCountriesUseCase: GetListCountriesUseCase,
-    private val postCountryUseCase: PostCountryUseCase
+    private val postCountryUseCase: PostCountryUseCase,
+    private val getUserCountriesUseCase: GetUserCountriesUseCase
 ): ViewModel() {
 
     private val _countries = MutableStateFlow<List<Country>>(emptyList())
@@ -32,8 +34,27 @@ class CountryViewModel @Inject constructor(
     private val _isExpanded = MutableStateFlow(false)
     val isExpanded: StateFlow<Boolean> = _isExpanded.asStateFlow()
 
+    private val _userCountries = MutableStateFlow<List<Country>>(emptyList())
+    val userCountries: StateFlow<List<Country>> = _userCountries
+
     init {
         fetchCountries(_searchText.value)
+        getUserCountries()
+    }
+
+    fun update(){
+        getUserCountries()
+    }
+
+    private fun getUserCountries (){
+        viewModelScope.launch {
+            try {
+                val countries = getUserCountriesUseCase()
+                _userCountries.value = countries
+            }catch (e: Exception){
+                Log.e("Country VM", "Country get error, $e")
+            }
+        }
     }
 
     fun updateSearchText(newText: String) {
@@ -55,6 +76,7 @@ class CountryViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 postCountryUseCase(country)
+                getUserCountries()
             } catch (e: Exception){
                 Log.e("Country VM", "Country add error, $e")
             }

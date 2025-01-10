@@ -64,10 +64,10 @@ fun CountryListDialog (
         confirmButton = {
             CustomButton(
                 onClick = {
-                    shouldShowCountryDialog.value = false
                     if (selectedCountry != null){
                         viewModel.addCountry(selectedCountry!!)
                     }
+                    shouldShowCountryDialog.value = false
                 },
                 text = "Add",
                 modifier = Modifier.size(width = 90.dp, height = 35.dp)

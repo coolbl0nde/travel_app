@@ -70,4 +70,23 @@ class CountryRepositoryImpl @Inject constructor(
             Log.e("CountryRepository", "Ошибка сети или сервера: ${e.message}", e)
         }
     }
+
+    override suspend fun getUserCountries(): List<Country> {
+        return try {
+            val response = countryApi.getUserCountries()
+
+            response.map { countryResponse ->
+                Country(
+                    id = countryResponse.id,
+                    name = countryResponse.name,
+                    latitude = countryResponse.latitude,
+                    longitude = countryResponse.longitude
+                )
+            }
+
+        } catch (e: Exception) {
+            Log.e("CountryRepository", "Ошибка сети или сервера: ${e.message}", e)
+            emptyList()
+        }
+    }
 }
