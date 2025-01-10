@@ -93,5 +93,4 @@ class CountryViewModel @Inject constructor(
             }
         }
     }
-
 }
