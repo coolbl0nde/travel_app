@@ -1,10 +1,10 @@
 package com.example.travelmap.di
 
 import com.example.travelmap.data.local.prefs.TokenProvider
-import com.example.travelmap.data.remote.AuthApi
+import com.example.travelmap.data.remote.api.AuthApi
 import com.example.travelmap.data.remote.AuthInterceptor
 import com.example.travelmap.data.remote.AuthRemoteDataSource
-import com.example.travelmap.data.remote.CountryApi
+import com.example.travelmap.data.remote.api.CountryApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
@@ -15,7 +15,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -62,7 +61,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(retrofit: Retrofit): AuthApi{
+    fun provideAuthApi(retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
     }
 
@@ -74,7 +73,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCountryApi(retrofit: Retrofit): CountryApi{
+    fun provideCountryApi(retrofit: Retrofit): CountryApi {
         return retrofit.create(CountryApi::class.java)
     }
 }

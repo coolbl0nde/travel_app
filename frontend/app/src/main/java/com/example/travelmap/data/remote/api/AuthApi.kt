@@ -1,8 +1,10 @@
-package com.example.travelmap.data.remote
+package com.example.travelmap.data.remote.api
 
+import com.example.travelmap.data.remote.AuthResponse
+import com.example.travelmap.data.remote.LoginRequest
+import com.example.travelmap.data.remote.RegisterRequest
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthApi {

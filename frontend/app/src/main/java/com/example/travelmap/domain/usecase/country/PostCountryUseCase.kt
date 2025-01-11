@@ -10,5 +10,4 @@ class PostCountryUseCase @Inject constructor(
     suspend operator fun invoke(country: Country){
         return countryRepository.postCountry(country)
     }
-
 }
