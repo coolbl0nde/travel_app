@@ -5,6 +5,7 @@ import com.example.travelmap.data.remote.api.AuthApi
 import com.example.travelmap.data.remote.AuthInterceptor
 import com.example.travelmap.data.remote.AuthRemoteDataSource
 import com.example.travelmap.data.remote.api.CountryApi
+import com.example.travelmap.data.remote.api.MessageApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.squareup.moshi.Moshi
@@ -53,7 +54,7 @@ object NetworkModule {
         gson: Gson
     ): Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://7c4e-209-38-205-9.ngrok-free.app/")
+            .baseUrl("https://b379-64-176-68-100.ngrok-free.app/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
@@ -75,5 +76,11 @@ object NetworkModule {
     @Singleton
     fun provideCountryApi(retrofit: Retrofit): CountryApi {
         return retrofit.create(CountryApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessageApi(retrofit: Retrofit): MessageApi {
+        return retrofit.create(MessageApi::class.java)
     }
 }

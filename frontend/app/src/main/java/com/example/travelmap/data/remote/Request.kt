@@ -22,3 +22,7 @@ data class CountryRequest(
 data class MessageRequest(
     val content: String
 )
+
+data class UpdateMessageRequest(
+    val isSaved: Boolean
+)

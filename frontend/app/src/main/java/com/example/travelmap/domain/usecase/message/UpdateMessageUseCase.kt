@@ -7,7 +7,7 @@ import javax.inject.Inject
 class UpdateMessageUseCase @Inject constructor(
     private val messageRepository: MessageRepository
 ) {
-    suspend operator fun invoke(message: Message){
-        messageRepository.updateMessage(message)
+    suspend operator fun invoke(id: Int, isSaved: Boolean){
+        messageRepository.updateMessage(id, isSaved)
     }
 }

@@ -3,6 +3,7 @@ package com.example.travelmap.data.repository
 import android.util.Log
 import com.example.travelmap.data.remote.CountryRequest
 import com.example.travelmap.data.remote.MessageRequest
+import com.example.travelmap.data.remote.UpdateMessageRequest
 import com.example.travelmap.data.remote.api.CountryApi
 import com.example.travelmap.data.remote.api.MessageApi
 import com.example.travelmap.domain.model.Country
@@ -51,7 +52,22 @@ class MessageRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateMessage(message: Message) {
-        TODO("Not yet implemented")
+    override suspend fun updateMessage(id: Int, isSaved: Boolean) {
+        try {
+            val request = UpdateMessageRequest(
+                isSaved = isSaved
+            )
+
+            val response = messageApi.updateMessage(id, request)
+
+            if (response.isSuccessful){
+                Log.d("MessageRepository", "Успешно отправлено!")
+            } else {
+                val errorMessage = response.errorBody()?.string() ?: "Ошибка запроса"
+                Log.e("MessageRepository", "Ошибка: $errorMessage")
+            }
+        } catch (e: Exception) {
+            Log.e("MessageRepository", "Error with updateMessage $e")
+        }
     }
 }

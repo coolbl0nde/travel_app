@@ -23,7 +23,7 @@ import com.mapbox.maps.extension.style.expressions.dsl.generated.mod
 
 @Composable
 fun ChatInputField (
-    modifier: Modifier = Modifier
+    viewModel: ChatViewModel
 ) {
 
     var message by remember {
@@ -31,7 +31,7 @@ fun ChatInputField (
     }
 
     Row (
-        modifier = modifier.padding(10.dp)
+        modifier = Modifier.padding(10.dp)
     ) {
         TextField(
             value = message,
@@ -46,7 +46,7 @@ fun ChatInputField (
         )
 
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = { viewModel.addMessage(content = message) },
             modifier = Modifier.align(Alignment.CenterVertically)
         ) {
             Icon(
