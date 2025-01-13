@@ -7,7 +7,7 @@ import javax.inject.Inject
 class PostMessageUseCase @Inject constructor(
     private val messageRepository: MessageRepository
 ) {
-    suspend operator fun invoke(content: String){
-        messageRepository.postMessage(content)
+    suspend operator fun invoke(content: String): Message {
+        return messageRepository.postMessage(content)
     }
 }

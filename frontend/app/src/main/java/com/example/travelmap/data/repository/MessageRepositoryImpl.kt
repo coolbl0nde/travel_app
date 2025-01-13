@@ -33,22 +33,18 @@ class MessageRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun postMessage(content: String) {
-        try {
+    override suspend fun postMessage(content: String): Message {
+        return try {
             val request = MessageRequest(
                 content = content
             )
 
             val response = messageApi.postMessage(request)
 
-            if (response.isSuccessful){
-                Log.d("MessageRepository", "Успешно отправлено!")
-            } else {
-                val errorMessage = response.errorBody()?.string() ?: "Ошибка запроса"
-                Log.e("MessageRepository", "Ошибка: $errorMessage")
-            }
+            response.body() ?: throw IllegalStateException("Response body is null")
         } catch (e: Exception) {
             Log.e("MessageRepository", "Error with postMessage $e")
+            throw e
         }
     }
 

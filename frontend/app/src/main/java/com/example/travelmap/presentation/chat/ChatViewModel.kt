@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.travelmap.domain.model.Message
+import com.example.travelmap.domain.model.MessageRole
 import com.example.travelmap.domain.usecase.message.GetListMessagesUseCase
 import com.example.travelmap.domain.usecase.message.PostMessageUseCase
 import com.example.travelmap.domain.usecase.message.UpdateMessageUseCase
@@ -24,6 +25,9 @@ class ChatViewModel @Inject constructor(
     private val _messages = MutableStateFlow<List<Message>>(emptyList())
     val messages: StateFlow<List<Message>> = _messages
 
+    private val _isAnswerLoading = MutableStateFlow(false)
+    var isAnswerLoading: StateFlow<Boolean> = _isAnswerLoading
+
     init {
         fetchMessages()
     }
@@ -42,8 +46,20 @@ class ChatViewModel @Inject constructor(
     fun addMessage(content: String) {
         viewModelScope.launch{
             try {
-                postMessageUseCase(content)
-                fetchMessages()
+                _isAnswerLoading.value = true
+
+                val userMessage = Message(
+                    id = 0,
+                    content = content,
+                    isSaved = false,
+                    role = MessageRole.user
+                )
+                _messages.value = _messages.value.toMutableList().apply { add(userMessage) }
+
+                val consultantAnswer = postMessageUseCase(content)
+                _messages.value = _messages.value.toMutableList().apply { add(consultantAnswer) }
+
+                _isAnswerLoading.value = false
             } catch (e: Exception) {
                 Log.e("ChatViewModel", "Error with addMessage: $e")
             }
