@@ -1,7 +1,7 @@
 package com.example.travelmap.data.repository
 
 import android.util.Log
-import com.example.travelmap.data.remote.CountryApi
+import com.example.travelmap.data.remote.api.CountryApi
 import com.example.travelmap.data.remote.CountryRequest
 import com.example.travelmap.domain.model.Country
 import com.example.travelmap.domain.repository.CountryRepository

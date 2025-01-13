@@ -2,24 +2,24 @@ package com.example.travelmap.di
 
 import android.app.Application
 import android.content.Context
-import androidx.room.Room
-import com.example.travelmap.data.local.db.AppDatabase
 import com.example.travelmap.data.local.db.UserDao
 import com.example.travelmap.data.local.prefs.TokenProvider
 import com.example.travelmap.data.remote.AuthRemoteDataSource
-import com.example.travelmap.data.remote.CountryApi
+import com.example.travelmap.data.remote.api.CountryApi
+import com.example.travelmap.data.remote.api.MessageApi
 import com.example.travelmap.data.repository.AppEntryRepositoryImpl
 import com.example.travelmap.data.repository.AuthRepositoryImpl
 import com.example.travelmap.data.repository.CountryRepositoryImpl
+import com.example.travelmap.data.repository.MessageRepositoryImpl
 import com.example.travelmap.domain.repository.AppEntryRepository
 import com.example.travelmap.domain.repository.AuthRepository
 import com.example.travelmap.domain.repository.CountryRepository
+import com.example.travelmap.domain.repository.MessageRepository
 import com.example.travelmap.domain.usecase.SetFirstLaunchCompletedUseCase
 import com.example.travelmap.domain.usecase.auth.LogInUserUseCase
 import com.example.travelmap.domain.usecase.auth.RegisterUserUseCase
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -84,6 +84,14 @@ object AppModule {
     @Singleton
     fun providePlacesClient(@ApplicationContext context: Context): PlacesClient {
         return Places.createClient(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessageRepository(
+        messageApi: MessageApi
+    ): MessageRepository {
+        return MessageRepositoryImpl(messageApi)
     }
 
 }

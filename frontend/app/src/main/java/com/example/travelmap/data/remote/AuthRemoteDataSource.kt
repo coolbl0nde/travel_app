@@ -1,6 +1,7 @@
 package com.example.travelmap.data.remote
 
 import android.util.Log
+import com.example.travelmap.data.remote.api.AuthApi
 import javax.inject.Inject
 
 class AuthRemoteDataSource @Inject constructor(

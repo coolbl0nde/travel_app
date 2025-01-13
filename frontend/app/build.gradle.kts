@@ -107,4 +107,6 @@ dependencies {
     implementation("com.mapbox.extension:maps-compose:11.9.0")
 
     implementation("com.google.maps.android:places-compose:0.1.2")
+
+    implementation ("io.noties.markwon:core:4.6.2")
 }

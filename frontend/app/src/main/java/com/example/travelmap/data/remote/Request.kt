@@ -18,3 +18,11 @@ data class CountryRequest(
     val longitude: Double,
     val latitude: Double
 )
+
+data class MessageRequest(
+    val content: String
+)
+
+data class UpdateMessageRequest(
+    val isSaved: Boolean
+)
