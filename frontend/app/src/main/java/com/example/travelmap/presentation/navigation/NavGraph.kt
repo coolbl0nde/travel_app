@@ -49,5 +49,8 @@ fun NavGraph (navController: NavHostController, startDestination: Any) {
         composable<ProfileScreen> {
             ProfileScreen()
         }
+        composable<RouteOptionsScreen> {
+            RouteOptionsScreen
+        }
     }
 }
