@@ -26,7 +26,7 @@ val Typography = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.poppins)),
-        fontWeight = FontWeight(700),
+        fontWeight = FontWeight(300),
         fontSize = 16.sp
     ),
     titleLarge = TextStyle(

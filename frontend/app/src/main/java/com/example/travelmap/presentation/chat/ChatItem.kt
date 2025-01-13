@@ -39,7 +39,7 @@ fun ChatItem(
     isFavorite: Boolean = false
 ) {
     val context = LocalContext.current
-    val markwon = remember { Markwon.create(context) } // Инициализация Markwon
+    val markwon = remember { Markwon.create(context) }
 
     Row(
         modifier = Modifier

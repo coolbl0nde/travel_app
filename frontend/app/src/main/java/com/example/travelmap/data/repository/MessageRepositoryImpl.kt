@@ -29,7 +29,7 @@ class MessageRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Log.e("MessageRepository", "Error with getListMessages $e")
-            emptyList()
+            throw e
         }
     }
 
@@ -64,6 +64,24 @@ class MessageRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Log.e("MessageRepository", "Error with updateMessage $e")
+        }
+    }
+
+    override suspend fun getFavoriteMessagesList(): List<Message> {
+        return try {
+            val response = messageApi.getFavoriteMessagesList()
+
+            response.map { messageResponse ->
+                Message(
+                    id = messageResponse.id,
+                    content = messageResponse.content,
+                    isSaved  = messageResponse.isSaved,
+                    role = messageResponse.role
+                )
+            }
+        } catch (e: Exception) {
+            Log.e("MessageRepository", "Error with getFavoriteMessagesList $e")
+            throw e
         }
     }
 }

@@ -21,4 +21,7 @@ interface MessageApi {
         @Path("id") id: Int,
         @Body updateRequest: UpdateMessageRequest
     ): Response<Unit>
+
+    @GET("/messages?isSaved=true")
+    suspend fun getFavoriteMessagesList(): List<MessageResponse>
 }

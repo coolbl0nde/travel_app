@@ -87,7 +87,8 @@ fun CountryListDialog (
                     inputField = {
                         SearchBarDefaults.InputField(
                             query = searchText,
-                            placeholder = { Text(text = "Start typing...")},
+                            placeholder = { Text(text = "Start typing...",
+                                style = MaterialTheme.typography.titleMedium)},
                             onQueryChange = {
                                 viewModel.updateSearchText(it)
                             },
