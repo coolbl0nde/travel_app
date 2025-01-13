@@ -29,15 +29,6 @@ fun ChatScreen(
 
     val messages by viewModel.messages.collectAsState()
 
-    /*val messages = List(5) { index ->
-        """
-        # Markdown Example $index
-        **Bold text**, *italic text*, and [a link](https://example.com).
-        - List item 1
-        - List item 2
-    """.trimIndent()
-    }*/
-
     val listState = rememberLazyListState()
 
     Column (

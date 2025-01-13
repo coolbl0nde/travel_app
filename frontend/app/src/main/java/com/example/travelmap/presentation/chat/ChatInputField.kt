@@ -46,7 +46,10 @@ fun ChatInputField (
         )
 
         IconButton(
-            onClick = { viewModel.addMessage(content = message) },
+            onClick = {
+                viewModel.addMessage(content = message)
+                message = ""
+                      },
             modifier = Modifier.align(Alignment.CenterVertically)
         ) {
             Icon(

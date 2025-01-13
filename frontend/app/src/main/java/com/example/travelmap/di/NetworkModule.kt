@@ -54,7 +54,7 @@ object NetworkModule {
         gson: Gson
     ): Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://b379-64-176-68-100.ngrok-free.app/")
+            .baseUrl("https://bf3a-64-176-66-33.ngrok-free.app/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
