@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.travelmap.domain.model.Country
+import com.example.travelmap.domain.usecase.auth.GetUserUseCase
 import com.example.travelmap.domain.usecase.country.GetListCountriesUseCase
 import com.example.travelmap.domain.usecase.country.GetUserCountriesUseCase
 import com.example.travelmap.domain.usecase.country.PostCountryUseCase
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class CountryViewModel @Inject constructor(
     private val getListCountriesUseCase: GetListCountriesUseCase,
     private val postCountryUseCase: PostCountryUseCase,
-    private val getUserCountriesUseCase: GetUserCountriesUseCase
+    private val getUserCountriesUseCase: GetUserCountriesUseCase,
+    private val getUserUseCase: GetUserUseCase
 ): ViewModel() {
 
     private val _countries = MutableStateFlow<List<Country>>(emptyList())
@@ -37,10 +39,23 @@ class CountryViewModel @Inject constructor(
     private val _userCountries = MutableStateFlow<List<Country>>(emptyList())
     val userCountries: StateFlow<List<Country>> = _userCountries
 
+    private val _userName = MutableStateFlow("")
+    val userName: StateFlow<String> = _userName
+
     init {
         fetchCountries(_searchText.value)
         getUserCountries()
+        getUserName()
     }
+
+    private fun getUserName(){
+        viewModelScope.launch {
+            val user = getUserUseCase()
+
+            _userName.value = user.name
+        }
+    }
+
 
     fun update(){
         getUserCountries()

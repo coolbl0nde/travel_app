@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.travelmap.domain.usecase.auth.CheckAuthUseCase
+import com.example.travelmap.domain.usecase.auth.LogOutUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,10 +14,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val checkAuthUseCase: CheckAuthUseCase
+    private val checkAuthUseCase: CheckAuthUseCase,
+    private val logOutUserUseCase: LogOutUserUseCase
 ):ViewModel() {
 
-    private val _startDestination = MutableStateFlow<String>("")
+    private val _startDestination = MutableStateFlow("")
     val startDestination: StateFlow<String> = _startDestination.asStateFlow()
 
     init {
@@ -40,6 +42,17 @@ class MainViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.e("MainViewModel", "Непредвиденная ошибка: ${e.message}")
                 _startDestination.value = "auth"
+            }
+        }
+    }
+
+    fun logOutUser() {
+        viewModelScope.launch {
+            try {
+                logOutUserUseCase()
+                _startDestination.value = "auth"
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Ошибка при выходе: ${e.message}")
             }
         }
     }

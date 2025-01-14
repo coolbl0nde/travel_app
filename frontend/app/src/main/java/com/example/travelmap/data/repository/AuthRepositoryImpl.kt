@@ -49,4 +49,49 @@ class AuthRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun getUser(): User {
+        return try {
+            val result = authRemoteDataSource.getUser()
+
+            User(
+                id = result.id,
+                name = result.name,
+                email = result.email
+            )
+        } catch (e: Exception) {
+            Log.e("Auth Rep", "Error with getUser $e")
+            throw e
+        }
+    }
+
+    override suspend fun updateUser(name: String): User {
+        return try {
+            val result = authRemoteDataSource.updateUser(name)
+
+            User(
+                id = result.id,
+                name = result.name,
+                email = result.email
+            )
+        } catch (e: Exception) {
+            Log.e("Auth Rep", "Error with updateUser $e")
+            throw e
+        }
+    }
+
+    override suspend fun logOutUser(): Result<Unit> {
+        return try {
+
+            authRemoteDataSource.logOutUser()
+
+            tokenProvider.clearToken()
+            Log.i("Auth Rep", "User successfully logged out")
+            Result.success(Unit)
+
+        } catch (e: Exception) {
+            Log.e("Auth Rep", "Error during log out: $e")
+            Result.failure(e)
+        }
+    }
 }

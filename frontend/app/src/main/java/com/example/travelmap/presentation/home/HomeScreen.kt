@@ -12,12 +12,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.travelmap.ui.theme.TravelMapTheme
 import com.mapbox.geojson.Point
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    navController: NavHostController = rememberNavController(),
     viewModel: CountryViewModel = hiltViewModel()
 ) {
 
@@ -35,13 +38,11 @@ fun HomeScreen(
         }
     }
 
-    Log.e("COORDINATES", "${countriesCoordinate.size}")
-
-
     BottomSheetScaffold(
         sheetContent = {
             SheetContentComponent(
-                viewModel
+                viewModel = viewModel,
+                navController = navController
             )
         },
         scaffoldState = scaffoldState,

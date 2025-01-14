@@ -28,4 +28,35 @@ class AuthRemoteDataSource @Inject constructor(
             throw Exception("Login failed")
         }
     }
+
+    suspend fun getUser(): UserResponse {
+        val response = authApi.getUser()
+
+        if (response.isSuccessful && response.body() != null) {
+            return response.body()!!
+        } else {
+            Log.e("EXC", "getUser")
+            throw Exception("getUser failed")
+        }
+    }
+
+    suspend fun updateUser(name: String): UserResponse {
+        val response = authApi.updateUser(UpdateUserRequest(name))
+
+        if (response.isSuccessful && response.body() != null) {
+            return response.body()!!
+        } else {
+            Log.e("EXC", "updateUser")
+            throw Exception("updateUser failed")
+        }
+    }
+
+    suspend fun logOutUser(): Result<Unit> {
+        return try {
+            val response = authApi.logOutUser()
+            response
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 }

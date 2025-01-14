@@ -22,13 +22,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.travelmap.R
 import com.example.travelmap.presentation.common.CustomButton
+import com.example.travelmap.presentation.navigation.ChatScreen
+import com.example.travelmap.presentation.navigation.RoutesScreen
 import com.example.travelmap.ui.theme.TravelMapTheme
 
 @Composable
 fun SheetContentComponent (
-    viewModel: CountryViewModel = hiltViewModel()
+    viewModel: CountryViewModel = hiltViewModel(),
+    navController: NavHostController = rememberNavController()
 ) {
 
     val userCountries = viewModel.userCountries.collectAsState()
@@ -36,6 +41,9 @@ fun SheetContentComponent (
     val shouldShowCountryDialog = remember {
         mutableStateOf(false)
     }
+
+    val userName = viewModel.userName.collectAsState()
+
 
     if (shouldShowCountryDialog.value) {
         CountryListDialog(
@@ -48,7 +56,7 @@ fun SheetContentComponent (
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Hello, Maria. You visited",
+            text = "Hello, ${userName.value}. You visited",
             fontSize = 20.sp,
             fontWeight = FontWeight(300),
             fontFamily = FontFamily(Font(R.font.poppins)),
@@ -90,7 +98,7 @@ fun SheetContentComponent (
 
             CustomButton(
                 text = "Add new route",
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(ChatScreen) },
                 fontWeight = FontWeight(300),
                 textSize = 14.sp,
                 backgroundColor = MaterialTheme.colorScheme.secondary,
