@@ -1,6 +1,9 @@
 import mount from 'koa-mount';
 
 import { accountRoutes } from 'resources/account';
+import { docRoutes } from 'resources/doc';
+
+import { swaggerService } from 'services';
 
 import { AppKoa, AppRouter } from 'types';
 
@@ -10,6 +13,9 @@ healthCheckRouter.get('/health', (ctx) => {
 });
 
 export default (app: AppKoa) => {
+  app.use(mount('/docs', swaggerService.swaggerInitFn));
+
   app.use(healthCheckRouter.routes());
   app.use(mount('/account', accountRoutes.publicRoutes));
+  app.use(mount('/docs', docRoutes.publicRoutes));
 };

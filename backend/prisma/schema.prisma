@@ -11,16 +11,23 @@ enum TokenType {
   ACCESS
 }
 
+enum OpenAIRole {
+  system
+  user
+  assistant
+}
+
 model Token {
   id Int @id @default(autoincrement())
 
   type   TokenType @default(ACCESS)
   value  String    @default("")
   userId Int
-  users  User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userID")
 
   createdOn DateTime @default(now())
   updatedOn DateTime @default(now())
+
+  users User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userID")
 
   @@map("tokens")
 }
@@ -33,10 +40,11 @@ model Country {
   latitude  Decimal?
 
   userId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userID")
 
   createdOn DateTime @default(now())
   updatedOn DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userID")
 
   @@map("countries")
 }
@@ -52,6 +60,24 @@ model User {
 
   tokens    Token[]
   countries Country[]
+  messaged  Message[]
 
   @@map("users")
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+
+  userId Int
+
+  content String
+  role    OpenAIRole
+
+  isSaved Boolean @default(false)
+
+  createdOn DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userID")
+
+  @@map("messages")
 }
