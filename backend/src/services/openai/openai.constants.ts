@@ -32,4 +32,5 @@ export const getRoutePrompt = (fullName: string) =>
   'specified regions and align the itinerary accordingly. Ensure the markdown ' +
   'output is well-structured, easy to read, and includes the following sections for each day.' +
   'Message with suggested route should contain only route information, no general phrases.' +
-  'Ensure your suggested route starts with suggested country name as header, skip unnecessary user interactions.';
+  'Ensure your suggested route starts with suggested country name only as header, skip unnecessary ' +
+  'user interactions & words, only country name.';
