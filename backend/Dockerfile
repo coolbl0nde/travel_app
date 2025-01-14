@@ -39,4 +39,4 @@ COPY --from=installer /app .
 
 EXPOSE 3001
 
-CMD ["ts-node", "backend/src/app.ts"]
+CMD ["ts-node", "src/app.ts"]
