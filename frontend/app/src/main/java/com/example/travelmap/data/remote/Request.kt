@@ -26,3 +26,7 @@ data class MessageRequest(
 data class UpdateMessageRequest(
     val isSaved: Boolean
 )
+
+data class UpdateUserRequest(
+    val name: String
+)

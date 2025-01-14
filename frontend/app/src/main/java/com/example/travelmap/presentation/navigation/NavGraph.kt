@@ -11,11 +11,16 @@ import com.example.travelmap.presentation.auth.register.RegisterScreen
 import com.example.travelmap.presentation.chat.ChatScreen
 import com.example.travelmap.presentation.home.HomeScreen
 import com.example.travelmap.presentation.profile.ProfileScreen
+import com.example.travelmap.presentation.profile.ProfileViewModel
 import com.example.travelmap.presentation.routes.RoutesScreen
 
 
 @Composable
-fun NavGraph (navController: NavHostController, startDestination: Any) {
+fun NavGraph (
+    navController: NavHostController,
+    startDestination: Any,
+    profileViewModel: ProfileViewModel
+) {
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable<WelcomeScreen> {
@@ -35,7 +40,7 @@ fun NavGraph (navController: NavHostController, startDestination: Any) {
         }
 
         composable<HomeScreen> {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
 
         composable<RoutesScreen> {
@@ -47,7 +52,7 @@ fun NavGraph (navController: NavHostController, startDestination: Any) {
         }
 
         composable<ProfileScreen> {
-            ProfileScreen()
+            ProfileScreen(profileViewModel)
         }
         composable<RouteOptionsScreen> {
             RouteOptionsScreen
