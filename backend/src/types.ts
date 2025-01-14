@@ -43,4 +43,16 @@ export type DealData = {
   properties: Record<string, string | null>;
 };
 
+export enum OpenAIModel {
+  GPT_3_5_TURBO = 'gpt-3.5-turbo',
+  GPT_4o_MINI = 'gpt-4o-mini',
+  WHISPER_1 = 'whisper-1',
+}
+
+export enum OpenAIRole {
+  SYSTEM = 'system',
+  USER = 'user',
+  ASSISTANT = 'assistant',
+}
+
 export { Next };

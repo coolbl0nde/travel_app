@@ -12,8 +12,10 @@ import cors from '@koa/cors';
 import http from 'http';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
+import koaStatic from 'koa-static';
 import koaLogger from 'koa-logger';
 import qs from 'koa-qs';
+import getAbsoluteSwaggerFsPath from 'swagger-ui-dist/absolute-path';
 
 import routes from 'routes';
 
@@ -22,6 +24,7 @@ import config from 'config';
 import logger from 'logger';
 
 import { AppKoa } from 'types';
+import mount from 'koa-mount';
 
 const initKoa = () => {
   const app = new AppKoa();
@@ -48,6 +51,7 @@ const initKoa = () => {
       },
     }),
   );
+  app.use(mount('/docs', koaStatic(getAbsoluteSwaggerFsPath(), { defer: true })));
 
   routes(app);
 

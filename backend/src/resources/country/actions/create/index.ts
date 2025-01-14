@@ -3,14 +3,13 @@ import { z } from 'zod';
 import { countryService } from 'resources/country';
 
 import { validateMiddleware } from 'middlewares';
+import { docsService } from 'services';
 
-import { AppKoaContext, AppRouter, Next } from 'types';
+import { AppKoaContext, AppRouter, Country, Next } from 'types';
 
-const schema = z.object({
-  name: z.string().min(1, 'Please, enter country name.'),
-  longitude: z.number().min(0, 'Please, provide longitude.'),
-  latitude: z.number().min(0, 'Please, provide latitude.'),
-});
+import docConfig from './doc';
+import { schema } from './schema';
+
 type ValidatedData = z.infer<typeof schema>;
 
 async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
@@ -18,10 +17,10 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
   const { name } = ctx.validatedData;
 
   const isCountryExists = await countryService.count({
-    where: { name, userId  },
+    where: { name, userId },
   });
 
-  ctx.assertClientError(!isCountryExists, { global: 'You\'ve already added this country before.' });
+  ctx.assertClientError(!isCountryExists, { global: "You've already added this country before." });
 
   await next();
 }
@@ -32,11 +31,13 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
   ctx.body = await countryService.create({
     data: {
       userId,
-      ...ctx.validatedData
-    }
+      ...ctx.validatedData,
+    } as any,
   });
 }
 
 export default (router: AppRouter) => {
-  router.post('/', validator, validateMiddleware(schema), handler);
+  docsService.registerDocs(docConfig);
+
+  router.post('/', validateMiddleware(schema), validator, handler);
 };

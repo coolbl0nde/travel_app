@@ -1,23 +1,16 @@
 import { z } from 'zod';
 
-import { tokenService } from "resources/token";
+import { tokenService } from 'resources/token';
 import { userService } from 'resources/user';
 
 import { validateMiddleware } from 'middlewares';
+import { docsService } from 'services';
 import { securityUtil } from 'utils';
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants';
 import { AppKoaContext, AppRouter, Next, User } from 'types';
 
-const schema = z.object({
-  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z
-    .string()
-    .regex(
-      PASSWORD_REGEX,
-      'The password must contain 8 or more characters with at least one letter (a-z), one capital letter (A-Z) and one number (0-9).',
-    ),
-});
+import docConfig from './doc';
+import { schema } from './schema';
 
 interface ValidatedData extends z.infer<typeof schema> {
   user: User;
@@ -47,20 +40,17 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 
   const [{ accessToken }] = await Promise.all([
     tokenService.createAuthTokens({ userId: user.id }),
-    userService.updateLastRequest(user.id)
+    userService.updateLastRequest(user.id),
   ]);
 
   ctx.body = {
     user: userService.getPublic(user),
-    accessToken
+    accessToken,
   };
 }
 
 export default (router: AppRouter) => {
-  router.post(
-    '/sign-in',
-    validateMiddleware(schema),
-    validator,
-    handler,
-  );
+  docsService.registerDocs(docConfig);
+
+  router.post('/sign-in', validateMiddleware(schema), validator, handler);
 };

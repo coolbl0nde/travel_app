@@ -1,11 +1,11 @@
-import { userService } from 'resources/user';
+import { docsService } from 'services';
 
 import { AppKoaContext, AppRouter } from 'types';
 
 async function handler(ctx: AppKoaContext) {
-  ctx.body = userService.getPublic(ctx.state.user);
+  ctx.body = docsService.getDocs();
 }
 
 export default (router: AppRouter) => {
-  router.get('/', handler);
+  router.get('/json', handler);
 };
