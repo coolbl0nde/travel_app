@@ -25,11 +25,7 @@ class ProfileViewModel @Inject constructor(
     private val _logOutEvent = MutableStateFlow(false)
     val logOutEvent: StateFlow<Boolean> = _logOutEvent
 
-    init {
-        getUser()
-    }
-
-    private fun getUser(){
+    fun getUser(){
         viewModelScope.launch {
             try {
                 val result = getUserUseCase()

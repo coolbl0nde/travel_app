@@ -55,6 +55,11 @@ fun ProfileScreen(
         mutableStateOf(false)
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.getUser()
+    }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
