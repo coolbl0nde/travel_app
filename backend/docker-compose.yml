@@ -1,0 +1,48 @@
+version: '3.6'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: travel_app_database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+    networks:
+      - travel_app
+
+  api:
+    container_name: backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    build:
+      dockerfile: Dockerfile
+      target: development
+      args:
+        - NODE_ENV
+        - APP_ENV
+        - DATABASE_URL
+    volumes:
+      - ./prisma:/app/prisma
+    ports:
+      - '3005:3001'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    networks:
+      - travel_app
+
+volumes:
+  db_data:
+networks:
+  travel_app:
