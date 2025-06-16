@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.travelmap.R
 import com.mapbox.maps.extension.style.expressions.dsl.generated.mod
 
@@ -40,7 +42,8 @@ fun ChatInputField (
                 message = newMessage
             },
             placeholder = {
-                Text(text = "Type your message")
+                Text(text = "Type your message",
+                    style = MaterialTheme.typography.titleMedium)
             },
             shape = RoundedCornerShape(24.dp),
             modifier = Modifier.weight(1f)

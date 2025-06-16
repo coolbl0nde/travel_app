@@ -1,5 +1,6 @@
 package com.example.travelmap.presentation.navigation
 
+import RouteDetailsScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -22,7 +23,7 @@ fun NavGraph (
     profileViewModel: ProfileViewModel
 ) {
 
-    NavHost(navController = navController, startDestination = startDestination) {
+    NavHost(navController = navController, startDestination = RouteDetailsScreen) {
         composable<WelcomeScreen> {
             WelcomeScreen(navController = navController)
         }
@@ -56,6 +57,9 @@ fun NavGraph (
         }
         composable<RouteOptionsScreen> {
             RouteOptionsScreen
+        }
+        composable<RouteDetailsScreen> {
+            RouteDetailsScreen()
         }
     }
 }

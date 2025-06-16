@@ -12,3 +12,4 @@ import kotlinx.serialization.Serializable
 @Serializable object ChatScreen
 @Serializable object ProfileScreen
 @Serializable object RouteOptionsScreen
+@Serializable object RouteDetailsScreen

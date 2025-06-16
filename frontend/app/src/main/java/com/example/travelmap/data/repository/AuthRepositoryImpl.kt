@@ -83,7 +83,7 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun logOutUser(): Result<Unit> {
         return try {
 
-            authRemoteDataSource.logOutUser()
+            //authRemoteDataSource.logOutUser()
 
             tokenProvider.clearToken()
             Log.i("Auth Rep", "User successfully logged out")
